@@ -1,23 +1,57 @@
-const subtrair = document.getElementById('subtrair');
-const somar = document.getElementById('somar');
-const braco = document.getElementById('braco');
+const pecas = {
+    "bracos": {
+        "forca": 29,
+        "poder": 35,
+        "energia": -21,
+        "velocidade": -5
+    },
 
-const controle = document.querySelectorAll('.controle-ajuste');
+    "blindagem": {
+        "forca": 41,
+        "poder": 20,
+        "energia": 0,
+        "velocidade": -20
+    },
+    "nucleos":{
+        "forca": 0,
+        "poder": 7,
+        "energia": 48,
+        "velocidade": -24
+    },
+    "pernas":{
+        "forca": 27,
+        "poder": 21,
+        "energia": -32,
+        "velocidade": 42
+    },
+    "foguetes":{
+        "forca": 0,
+        "poder": 28,
+        "energia": 0,
+        "velocidade": -2
+    }
+}
 
-controle.forEach((elemento) => {
-    elemento.addEventListener('click', (evento) => {
-        manipulaDados(evento.target.textContent);
-    })
-})
+const controle = document.querySelectorAll('[data-controle]');
 
-function manipulaDados(operacao) {
+function manipulaDados(operacao, controle) {
+    const peca = controle.querySelector('[data-contador]');
+
     if(operacao === '-') {
-        braco.value = parseInt(braco.value) - 1;        
+        peca.value = parseInt(peca.value) - 1;        
         
     }
 
     if(operacao === '+') {
-        braco.value = parseInt(braco.value) + 1;
+        peca.value = parseInt(peca.value) + 1;
         
     }
 }
+
+controle.forEach((elemento) => {
+    elemento.addEventListener('click', (evento) => {
+        manipulaDados(evento.target.dataset.controle, evento.target.parentNode);
+        console.log(evento.target)
+    })
+})
+
