@@ -31,8 +31,17 @@ const pecas = {
         "velocidade": -2
     }
 }
-
 const controle = document.querySelectorAll('[data-controle]');
+const estatisticas = document.querySelectorAll('[data-estatistica]');
+
+
+controle.forEach((elemento) => {
+    elemento.addEventListener('click', (evento) => {
+        manipulaDados(evento.target.dataset.controle, evento.target.parentNode);
+        atualizaEstatisticas(evento.target.dataset.peca);
+    });
+});
+
 
 function manipulaDados(operacao, controle) {
     const peca = controle.querySelector('[data-contador]');
@@ -40,18 +49,17 @@ function manipulaDados(operacao, controle) {
     if(operacao === '-') {
         peca.value = parseInt(peca.value) - 1;        
         
-    }
+    };
 
     if(operacao === '+') {
         peca.value = parseInt(peca.value) + 1;
         
-    }
-}
+    };
+};
 
-controle.forEach((elemento) => {
-    elemento.addEventListener('click', (evento) => {
-        manipulaDados(evento.target.dataset.controle, evento.target.parentNode);
-        console.log(evento.target)
+function atualizaEstatisticas(peca) {
+    estatisticas.forEach((elemento) => {
+        elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
     })
-})
+};
 
